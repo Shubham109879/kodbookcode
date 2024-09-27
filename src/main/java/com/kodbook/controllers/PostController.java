@@ -64,7 +64,20 @@ public class PostController
 	@PostMapping("/likePost")
 	public String likePost(@RequestParam Long id, Model model) {
 		Post post= service.getPost(id);
-		post.setLikes(post.getLikes() + 1);
+		
+		boolean statusLikes=service.likeExists(id);
+		
+		if(statusLikes==true)
+		{
+			post.setLikes(post.getLikes() - 1);	
+		}
+		
+		else
+		{
+			post.setLikes(post.getLikes() + 1);	
+		}
+		
+//		post.setLikes(post.getLikes() - 1);
 		service.updatePost(post);
 		
 		List<Post> allPosts = service.fetchAllPosts();

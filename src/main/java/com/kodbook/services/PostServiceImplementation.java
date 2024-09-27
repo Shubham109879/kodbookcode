@@ -41,4 +41,18 @@ public class PostServiceImplementation implements PostService
 		
 	}
 
+	@Override
+	public boolean likeExists(Long id) {
+		Post post=repo.findById(id).get();
+		
+		if(post.getLikes()==1)
+		{
+		 return true;	
+		}
+		
+		return false;
+	}
+	
+	
+
 }

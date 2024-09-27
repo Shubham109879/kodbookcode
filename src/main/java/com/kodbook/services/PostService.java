@@ -15,4 +15,6 @@ public interface PostService
   Post getPost(Long id);
 
   void updatePost(Post post);
+  
+  boolean likeExists(Long id);
 }

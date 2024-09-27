@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/profile.css">
+<meta charset="ISO-8859-1">
+<title>Search Details</title>
+</head>
+<body>
+   <div id="container">
+		
+			<span th:each="user : ${userList}">
+			 <form action="/visitProfile" method="post">
+			 
+			  <div class="post-header">
+				<div class="profile-pic">
+					<img th:if="${user.photoBase64}"
+						th:src="'data:image/jpeg;base64,' + ${user.photoBase64}"
+						alt="User Photo" />
+				 </div> 
+				 <span class="username" th:text="${user.username}">Unknown</span> 
+				<input type="hidden" name="profileName" th:value="${user.username}">
+
+				<input type="submit" value="Visit profile">
+				</div>
+			 </form>	
+			</span>
+	</div>
+   
+  
+</body>
+</html>

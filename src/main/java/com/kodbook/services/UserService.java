@@ -1,5 +1,7 @@
 package com.kodbook.services;
 
+import java.util.List;
+
 import com.kodbook.entities.User;
 
 public interface UserService 
@@ -13,4 +15,13 @@ public interface UserService
 	User getUser(String username);
 
 	void updateUser(User user);
+
+	boolean userNameExists(String username);
+	
+	public User getUserByEmail(String email); 
+	
+	public boolean userEmailExists(String email);
+	
+	public List<User> searchUser(String username);
+	
 }

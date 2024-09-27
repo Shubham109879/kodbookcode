@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kodbook.entities.Post;
 import com.kodbook.entities.User;
@@ -28,6 +30,16 @@ public class NavigationController
 	public String openSignUp() {
 		return "signUp";
 	}
+	
+	
+	@GetMapping("/openResetPassword")
+	public String openResetPassword()
+	{
+	  return "resetPasswordEmail";	
+	}
+	
+	
+	
 	@GetMapping("/openCreatePost")
 	public String openCreatePost() {
 		return "createPost";
@@ -58,9 +70,24 @@ public class NavigationController
 			return "index";
 	}
 	
+	
+	@PostMapping("/visitProfile")
+	public String visitProfile(@RequestParam String profileName,Model model)
+	{
+	  User user=service.getUser(profileName);
+	  model.addAttribute("user",user);
+	  List<Post> myPosts=user.getPosts();
+	  model.addAttribute("myPosts",myPosts);
+	  
+	  return "showUserProfile";
+	}
+	
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "index";
 	}
+	
+		
 }

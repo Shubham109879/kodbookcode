@@ -2,29 +2,34 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="/styles.css"> 
 <title>KodBook</title>
 </head>
 <body>
+ <div class="container">
   <h1>KodBook</h1>
   <h3>Social Media App</h3>
   <hr>
-  
-  <form action="/login" method="post">
+   <form action="/login" method="post" class="login-form">
     <label>Username: </label>
-    <input type="text" name="username">
+    <input type="text" name="username" placeholder="Username" required>
     <br><br>
     
     <label>Password: </label>
-    <input type="password" name="password">
+    <input type="password" name="password" placeholder="Password" required>
     <br><br>
     
-    <input type="submit" value="Login">
+    <input type="submit" value="Login" class="submit-button">
     
     <hr>
     
-    <a href = "/openResetPassword">Forgot password?</a>
-    <a href = "/openSignUp">New User? Create new account....</a>
-  
-  </form>
+    <div class="links">
+      <a href = "/openResetPassword">Forgot Password?</a>
+      <a href = "/openSignUp">New User?Create New Account</a>
+    </div>
+    
+     
+   </form>
+  </div>
 </body>
 </html>
