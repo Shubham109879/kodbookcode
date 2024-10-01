@@ -25,7 +25,6 @@ public class User
   
   
   @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "post_id", nullable = false)
   private List<Post> posts;
   
   @Lob
