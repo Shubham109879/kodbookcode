@@ -23,7 +23,9 @@ public class User
   private String linkedIn;
   private String gitHub;
   
-  @OneToMany
+  
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "post_id", nullable = false)
   private List<Post> posts;
   
   @Lob

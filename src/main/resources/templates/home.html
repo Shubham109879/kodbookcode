@@ -60,6 +60,7 @@
                 <!-- Like form -->
                 <form action="/likePost" method="post" class="like-form">
                     <input type="hidden" name="id" th:value="${post.id}">
+                    <input type="hidden" name="loginUserName" th:value="${session.username}">
                     <button type="submit"><i class="fa fa-thumbs-up"></i><span th:text="${post.likes}"></span>
                     </button>
                 </form>

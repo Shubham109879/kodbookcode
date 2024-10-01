@@ -1,8 +1,6 @@
 package com.kodbook.entities;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 import jakarta.persistence.*;
 
@@ -13,10 +11,18 @@ public class Post
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String caption;
+	
+	@Column(nullable=false)
 	private int likes;
+	
+	
 	private List<String> comments;
 	
-	@ManyToOne
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Like> likeList = new ArrayList<>();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
 	@Lob
@@ -36,12 +42,14 @@ public class Post
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(Long id, String caption, int likes, List<String> comments, User user, byte[] photo) {
+	public Post(Long id, String caption, int likes, List<String> comments, List<Like> likeList, User user,
+			byte[] photo) {
 		super();
 		this.id = id;
 		this.caption = caption;
 		this.likes = likes;
 		this.comments = comments;
+		this.likeList = likeList;
 		this.user = user;
 		this.photo = photo;
 	}
@@ -78,6 +86,14 @@ public class Post
 		this.comments = comments;
 	}
 
+	public List<Like> getLikeList() {
+		return likeList;
+	}
+
+	public void setLikeList(List<Like> likeList) {
+		this.likeList = likeList;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -96,19 +112,10 @@ public class Post
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", caption=" + caption + ", likes=" + likes + ", comments=" + comments + ", user="
-				+ user + ", photo=" + Arrays.toString(photo) + "]";
+		return "Post [id=" + id + ", caption=" + caption + ", likes=" + likes + ", comments=" + comments + ", likeList="
+				+ likeList + ", user=" + user + ", photo=" + Arrays.toString(photo) + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 }

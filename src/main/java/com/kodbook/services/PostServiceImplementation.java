@@ -1,18 +1,29 @@
 package com.kodbook.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kodbook.entities.Like;
 import com.kodbook.entities.Post;
+import com.kodbook.entities.User;
+import com.kodbook.repositories.LikeRepository;
 import com.kodbook.repositories.PostRepository;
+import com.kodbook.repositories.UserRepository;
 
 @Service
 public class PostServiceImplementation implements PostService
 {
 	@Autowired
 	PostRepository repo;
+	
+	@Autowired
+	UserRepository userRepo;
+	
+	@Autowired
+	LikeRepository likeRepo;
 
 	@Override
 	public void createPost(Post post) {
@@ -41,16 +52,41 @@ public class PostServiceImplementation implements PostService
 		
 	}
 
+//	public boolean likeExists(Long id) {
+//		Post post=repo.findById(id).get();
+//		
+//		if(post.getLikes()==1)
+//		{
+//		 return true;	
+//		}
+//		
+//		return false;
+//	}
+
 	@Override
-	public boolean likeExists(Long id) {
-		Post post=repo.findById(id).get();
+	public void likePost(Long postId, Long userId) {
 		
-		if(post.getLikes()==1)
+		Post post=repo.findById(postId).get();
+		User user=userRepo.findById(userId).get();
+		
+		Optional<Like> likeExists=likeRepo.findByUserAndPost(user, post);
+		
+		if(likeExists.isPresent())
 		{
-		 return true;	
+		 likeRepo.delete(likeExists.get());
+		 post.setLikes(post.getLikes()-1);
 		}
 		
-		return false;
+		else
+		{
+		 Like like=new Like();
+		 like.setUser(user);
+		 like.setPost(post);
+		 likeRepo.save(like);
+		 post.setLikes(post.getLikes()+1);
+		}
+		
+		repo.save(post);
 	}
 	
 	

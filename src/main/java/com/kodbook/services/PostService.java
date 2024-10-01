@@ -3,6 +3,7 @@ package com.kodbook.services;
 import java.util.List;
 
 import com.kodbook.entities.Post;
+import com.kodbook.entities.User;
 
 public interface PostService 
 {
@@ -16,5 +17,5 @@ public interface PostService
 
   void updatePost(Post post);
   
-  boolean likeExists(Long id);
+  void likePost(Long postId,Long userId);
 }
