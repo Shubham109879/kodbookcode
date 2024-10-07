@@ -63,20 +63,38 @@ public class UserController
   public String login(@RequestParam String username,@RequestParam String password,
 		  Model model,HttpSession session)
   {
-	  boolean status = service.validateUser(username,password);
-		if(status == true) 
+	  boolean status1=service.userNameExists(username);
+	  
+	 if(status1==true) 
+	 {	 
+	  boolean status2 = service.validateUser(username,password);
+	  
+		if(status2 == true) 
 		{
 			List<Post> allPosts = postService.fetchAllPosts();
 			
+			User user = service.getUser(username);
+			
+			model.addAttribute("user", user);
+			
 			session.setAttribute("username", username);
+			
 			model.addAttribute("session", session);
 			
 			model.addAttribute("allPosts", allPosts);
 			
 			return "home";
 		}
+		
+		else
+		{
+			model.addAttribute("error", "Invalid Username or Password !!");
+			return "index";	
+		}
+	 }
 		else 
 		{
+			model.addAttribute("error", "Invalid Username or Password");
 			return "index";
 		}
   }
@@ -135,7 +153,6 @@ public class UserController
 	   
 	   List<Post> allPosts = postService.fetchAllPosts();
 		
-		session.setAttribute("username", username);
 		model.addAttribute("session", session);
 		
 		model.addAttribute("allPosts", allPosts);

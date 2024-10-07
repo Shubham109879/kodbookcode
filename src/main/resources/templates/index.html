@@ -11,6 +11,9 @@
   <h3>Social Media App</h3>
   <hr>
    <form action="/login" method="post" class="login-form">
+    <div th:if="${error}" class="error-message">
+     <span th:text="${error}"></span>
+    </div>
     <label>Username: </label>
     <input type="text" name="username" placeholder="Username" required>
     <br><br>

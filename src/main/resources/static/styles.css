@@ -23,6 +23,12 @@ body {
     max-width: 400px;
 }
 
+.error-message{
+	color: #FF0000;
+}
+
+
+
 h1, h3 {
     text-align: center;
     color: #6a11cb;
@@ -97,6 +103,8 @@ a:hover {
     display: flex;
     flex-direction: column;
 }
+
+
 
 
 

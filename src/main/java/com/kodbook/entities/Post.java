@@ -16,7 +16,11 @@ public class Post
 	private int likes;
 	
 	
-	private List<String> comments;
+	//private List<String> comments;
+	
+	// Establishing a one-to-many relationship with comments
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Like> likeList = new ArrayList<>();
@@ -41,7 +45,7 @@ public class Post
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(Long id, String caption, int likes, List<String> comments, List<Like> likeList, User user,
+	public Post(Long id, String caption, int likes, List<Comment> comments, List<Like> likeList, User user,
 			byte[] photo) {
 		super();
 		this.id = id;
@@ -77,11 +81,11 @@ public class Post
 		this.likes = likes;
 	}
 
-	public List<String> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<String> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 

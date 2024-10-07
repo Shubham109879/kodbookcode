@@ -17,7 +17,14 @@
 	</nav>
 	
    <nav class="options-nav">
-		<span th:text="${session.username}"></span>
+   
+      <!--<div class="profile-picture">  -->
+          <!--<img th:if="${user.photoBase64}" 
+                 th:src="'data:image/jpeg;base64,' + ${user.photoBase64}" 
+                 alt="Profile Photo" th:class="profile-image">  -->  
+		<span th:text="${session.username}">
+		</span>
+		<!-- </div> -->
         <a href="/goHome"><i class="fas fa-home"></i> News feed</a>
         <a href="/openCreatePost"><i class="fas fa-plus-circle"></i> Create post</a>
         <a href="/openMyProfile"><i class="fas fa-user-circle"></i> My profile</a>
@@ -68,9 +75,10 @@
 				<!-- Comment form -->
                 <form action="/addComment" method="post" class="comment-form">
                     <input type="hidden" name="id" th:value="${post.id}">
-                    <textarea name="comment" placeholder="Add a comment..." required></textarea>
+                    <input type="hidden" name="loginUserName" th:value="${session.username}">
+                    <textarea name="content" placeholder="Add a comment..." required></textarea>
                     <button type="submit" class="send-comment">
-						<i class="fas fa-location-arrow"></i>
+						<i class="fas fa-location-arrow"><span th:text="${post.comments.size()}"></span></i>
 					</button>
                 </form>
 
@@ -79,13 +87,23 @@
                     <h4>Comments:</h4>
                     <ul>
                         <li th:each="comment : ${post.comments}">
-                            <span th:text="${comment}"></span>
+                            <div class="profile-pic-2">
+                            <strong><span th:text="${comment.createdDate}"></span></strong>
+                            <strong><span th:text="${comment.createdTime}"></span></strong>
+                            <img th:if="${comment.user.photoBase64}" 
+                             th:src="'data:image/jpeg;base64,' + ${comment.user.photoBase64}" 
+                             alt="User Photo" />
+                             <strong><span th:text="${comment.user.username}"></span></strong>
+                             <span th:text="${comment.content}"></span>
+                              </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </span>
     </div>
+    
+    <script type="text/javascript" src="script.js"></script>
  
 </body>
 </html>

@@ -45,8 +45,9 @@ public class NavigationController
 		return "createPost";
 	}
 	@GetMapping("/goHome")
-	public String login(Model model)	{
+	public String login(Model model,HttpSession session)	{
 			List<Post> allPosts = postService.fetchAllPosts();
+			
 			model.addAttribute("allPosts", allPosts);
 			return "home";
 	}
