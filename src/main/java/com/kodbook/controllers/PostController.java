@@ -2,7 +2,6 @@ package com.kodbook.controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kodbook.entities.Comment;
+import com.kodbook.entities.Comments;
 import com.kodbook.entities.Post;
 import com.kodbook.entities.User;
 import com.kodbook.services.PostService;
@@ -120,16 +119,16 @@ public class PostController
 	public String addComment(@RequestParam Long id,@RequestParam String loginUserName, 
 			@RequestParam String content, Model model) {
 		
-		Comment comment=new Comment();
+		Comments comment=new Comments();
 		
 		comment.setContent(content);
 	
 		
 		Post post= service.getPost(id);
-		List<Comment> comments = post.getComments();
+		List<Comments> comments = post.getComments();
 		
 		if(comments == null) {
-			comments = new ArrayList<Comment>();
+			comments = new ArrayList<Comments>();
 		}
 		
 		comment.setPost(post);

@@ -8,9 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-public class Comment 
+public class Comments 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +29,12 @@ public class Comment
     private LocalTime createdTime; // New field for LocalTime
     
     
-	public Comment() {
+	public Comments() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Comment(Long id, User user, Post post,String content,LocalDate createdDate,LocalTime createdTime) {
+	public Comments(Long id, User user, Post post,String content,LocalDate createdDate,LocalTime createdTime) {
 		super();
 		this.id = id;
 		this.user = user;
